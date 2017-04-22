@@ -13,6 +13,6 @@ typedef struct list {
 
 list* list_create();
 void list_destroy(list *l);
-void list_add(list *l, void *elem);
+item* list_add(list *l, void *elem);
 void list_remove(list *l, item *i);
 
