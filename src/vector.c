@@ -25,5 +25,6 @@ struct vector vec_smult(double a, struct vector u) {
   r.x = a * u.x;
   r.y = a * u.y;
   r.z = a * u.z;
+  return r;
 }
 

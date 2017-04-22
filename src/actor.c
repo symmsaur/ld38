@@ -1,10 +1,14 @@
 #include <stdlib.h>
 
 #include "actor.h"
+#include "vector.h"
 
-void step_position(actor *a) {}
+void actor_step_position(actor *a, double dt) {
+  vector delta_pos = vec_smult(dt, a->vel);
+  a->pos = vec_add(a->pos, delta_pos);
+}
 
-int check_collision(actor *a, actor *b)
+int actor_check_collision(actor *a, actor *b)
 {
   return 0;
 }

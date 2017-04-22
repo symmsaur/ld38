@@ -8,6 +8,6 @@ typedef struct actor {
   double size;
 } actor;
 
-void step_position(actor *a);
-int check_collision(actor *a, actor *b);
+void actor_step_position(actor *a, double dt);
+int actor_check_collision(actor *a, actor *b);
 actor * actor_create();

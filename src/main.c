@@ -13,13 +13,14 @@ int main()
   printf("Creating game\n");
   game *g = game_create();
   printf("Adding test actor\n");
-  item *i = list_add(g->actors, actor_create());
+  list_add(g->actors, actor_create());
   actor *a = (actor*)g->actors->first->elem;
   a->pos.x = .5;
   a->pos.y = .5;
+  a->vel.x = .1;
+  a->vel.y = .1;
   printf("Init gfx\n");
   gfx_init();
-  int quit = 0;
   SDL_Event e;
   printf("Starting main loop\n");
   while (1) {
