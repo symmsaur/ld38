@@ -40,18 +40,7 @@ void gfx_init() {
   _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
 
   // Test code ----
-  _placeholder_texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 50, 50);
-  SDL_Rect r;
-  r.x = 0;
-  r.y = 0;
-  r.w = 50;
-  r.h = 50;
-  SDL_SetRenderTarget(_renderer, _placeholder_texture);
-  SDL_SetRenderDrawColor(_renderer, 0xFF, 0x00, 0x00, 0x00);
-  SDL_RenderDrawRect(_renderer,&r);
-  SDL_RenderFillRect(_renderer, &r);
-  SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0x00);
-  SDL_SetRenderTarget(_renderer, NULL);
+  _placeholder_texture = IMG_LoadTexture(_renderer, "../assets/duck_top_0.png");
   // ------
 }
 
@@ -86,13 +75,13 @@ void render_actor(actor *a) {
 
   src.x = 0;
   src.y = 0;
-  src.w = 50;
-  src.h = 50;
+  src.w = 200;
+  src.h = 200;
 
   tgt.x = screen_x;
   tgt.y = screen_y;
-  tgt.w = 50;
-  tgt.h = 50;
+  tgt.w = 50 * scale;
+  tgt.h = 50 * scale;
 
   SDL_RenderCopyEx(_renderer, _placeholder_texture, &src, &tgt, 0, NULL, 0);
 }
