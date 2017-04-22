@@ -5,7 +5,7 @@ CFLAGS=-I$(IDIR) $(shell sdl2-config --cflags) -Wall -Werror -Wpedantic
 
 ODIR = ../target
 
-LIBS = $(shell sdl2-config --libs) -lSDL2_image
+LIBS = $(shell sdl2-config --libs) -lSDL2_image -lm
 
 _DEPS = vector.h list.h actor.h game.h render.h main.h 
 DEPS = $(patsubst %, $(IDIR)/%,$(_DEPS))

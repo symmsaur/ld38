@@ -15,10 +15,13 @@ int main()
   printf("Adding test actor\n");
   list_add(g->actors, actor_create());
   actor *a = (actor*)g->actors->first->elem;
-  a->pos.x = .5;
-  a->pos.y = .5;
-  a->vel.x = .1;
-  a->vel.y = .1;
+  a->pos.x = 0.0;
+  a->pos.y = 0.0;
+  a->pos.z = 1.0;
+  a->vel.x = 2.0;
+  a->vel.y = 1.0;
+  a->vel.z = .0;
+
   printf("Init gfx\n");
   gfx_init();
   SDL_Event e;

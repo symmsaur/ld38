@@ -6,6 +6,11 @@
 void actor_step_position(actor *a, double dt) {
   vector delta_pos = vec_smult(dt, a->vel);
   a->pos = vec_add(a->pos, delta_pos);
+  a->pos = vec_normalize(a->pos);
+  double old_vel_length = vec_norm(a->vel);
+  vector new_vel_direction = vec_project_plane(a->vel, a->pos);
+  vector new_vel = vec_smult(old_vel_length, vec_normalize(new_vel_direction));
+  a->vel = new_vel;
 }
 
 int actor_check_collision(actor *a, actor *b)

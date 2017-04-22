@@ -1,6 +1,7 @@
+#include <math.h>
 #include "vector.h"
 
-struct vector vec_add(vector u, vector v) {
+vector vec_add(vector u, vector v) {
   vector r;
   r.x = u.x + v.x;
   r.y = u.y + v.y;
@@ -12,7 +13,7 @@ double vec_dot(vector u, vector v) {
   return u.x * v.x + u.y * v.y + u.z * v.z;
 }
 
-struct vector vec_cross(vector u, vector v) {
+vector vec_cross(vector u, vector v) {
   vector r;
   r.x = u.y * v.z - u.z * v.y;
   r.y = u.z * v.x - u.x * v.z;
@@ -20,7 +21,7 @@ struct vector vec_cross(vector u, vector v) {
   return r;
 }
 
-struct vector vec_smult(double a, struct vector u) {
+vector vec_smult(double a, vector u) {
   vector r;
   r.x = a * u.x;
   r.y = a * u.y;
@@ -28,3 +29,17 @@ struct vector vec_smult(double a, struct vector u) {
   return r;
 }
 
+double vec_norm(vector u) {
+  return sqrt(vec_dot(u, u));
+}
+
+vector vec_normalize(vector u) {
+  vector r = vec_smult(1.0 / vec_norm(u), u);
+  return r;
+}
+
+vector vec_project_plane(vector u, vector normal) {
+  vector unit_normal = vec_normalize(normal);
+  vector u_perp = vec_smult(vec_dot(u, unit_normal), unit_normal); 
+  return vec_add(u, vec_smult(-1, u_perp));
+}

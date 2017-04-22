@@ -9,4 +9,7 @@ typedef struct vector {
 vector vec_add(vector u, vector v);
 double vec_dot(vector u, vector v);
 vector vec_cross(vector u, vector v);
-vector vec_smult(double a, struct vector u);
+vector vec_smult(double a, vector u);
+double vec_norm(vector u);
+vector vec_normalize(vector u);
+vector vec_project_plane(vector u, vector normal);
