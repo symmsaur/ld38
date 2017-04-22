@@ -5,12 +5,14 @@
 #include "render.h"
 #include "actor.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 800
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 
-#define SCALE 800
+#define SCALE 400
 
 void render_actor(actor *a);
+void render_background();
+void render_sphere();
 
 static SDL_Window *_window;
 static SDL_Renderer *_renderer;
@@ -20,7 +22,8 @@ static SDL_Texture *_placeholder_texture;
 void gfx_init() {
   SDL_Init(SDL_INIT_VIDEO);
 
-  _window = SDL_CreateWindow("ld38", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+  _window = SDL_CreateWindow("ld38", 0, 0, 
+      SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
   if (_window == NULL) {
     printf("Failed to create window\n.");
     SDL_Quit();
@@ -57,6 +60,8 @@ void gfx_cleanup() {
 
 void render(game *g) {
   SDL_RenderClear(_renderer);
+  render_background();
+  render_sphere();
   for (item *i = g->actors->first; i != NULL; i = i->next)
   {
     actor *a = (actor*)i->elem;
@@ -66,8 +71,8 @@ void render(game *g) {
 }
 
 void render_actor(actor *a) {
-  int screen_x = (int)(a->pos.x * SCALE);
-  int screen_y = (int)(a->pos.y * SCALE);
+  int screen_x = (int)((a->pos.x) * SCALE) + SCREEN_WIDTH / 2 - 25;
+  int screen_y = (int)((a->pos.y) * SCALE) + SCREEN_HEIGHT / 2 - 25;
 
   SDL_Rect src;
   SDL_Rect tgt;
@@ -85,3 +90,7 @@ void render_actor(actor *a) {
   SDL_RenderCopyEx(_renderer, _placeholder_texture, &src, &tgt, 0, NULL, 0);
 }
 
+void render_background() {
+}
+void render_sphere() {
+}
