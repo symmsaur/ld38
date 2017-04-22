@@ -18,6 +18,7 @@ static SDL_Window *_window;
 static SDL_Renderer *_renderer;
 
 static SDL_Texture *_placeholder_texture;
+static SDL_Texture *_background;
 
 void gfx_init() {
   SDL_Init(SDL_INIT_VIDEO);
@@ -35,6 +36,8 @@ void gfx_init() {
     printf("Fialed to create renderer");
     SDL_Quit();
   }
+
+  _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
 
   // Test code ----
   _placeholder_texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 50, 50);
@@ -95,6 +98,7 @@ void render_actor(actor *a) {
 }
 
 void render_background() {
+  SDL_RenderCopy(_renderer, _background, NULL, NULL);
 }
 void render_sphere() {
 }
