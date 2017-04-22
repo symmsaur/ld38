@@ -1,3 +1,5 @@
+#pragma once
+
 typedef struct item {
   void *elem;
   struct item *prev;
@@ -9,8 +11,8 @@ typedef struct list {
   item *last;
 } list;
 
-list* create();
-void destroy(list *l);
-void add(list *l, void *elem);
-void remove(list *l, item *i);
+list* list_create();
+void list_destroy(list *l);
+void list_add(list *l, void *elem);
+void list_remove(list *l, item *i);
 
