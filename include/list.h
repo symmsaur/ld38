@@ -1,7 +1,7 @@
 typedef struct item {
   void *elem;
-  item *prev;
-  item *next;
+  struct item *prev;
+  struct item *next;
 } item;
 
 typedef struct list {
@@ -10,7 +10,7 @@ typedef struct list {
 } list;
 
 list* create();
-void destroy();
-void add(*list, *elem);
-void remove(*list, *elem);
+void destroy(list *l);
+void add(list *l, void *elem);
+void remove(list *l, item *i);
 
