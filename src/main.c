@@ -13,8 +13,8 @@ int main()
   printf("Creating game\n");
   game *g = game_create();
   printf("Adding test actor\n");
-  list_add(g->actors, actor_create());
-  actor *a = (actor*)g->actors->first;
+  item *i = list_add(g->actors, actor_create());
+  actor *a = (actor*)g->actors->first->elem;
   a->pos.x = .5;
   a->pos.y = .5;
   printf("Init gfx\n");
