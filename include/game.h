@@ -1,3 +1,7 @@
+#pragma once
+
+#include "list.h"
+
 typedef struct game {
   list *actors;
 } game;

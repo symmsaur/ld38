@@ -7,5 +7,5 @@ typedef struct vector {
 vector add(vector u, vector v);
 double dot(vector u, vector v);
 vector cross(vector u, vector v);
-vector smult(double a, struct vector u):
+vector smult(double a, struct vector u);
 
