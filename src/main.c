@@ -4,6 +4,7 @@
 #include "main.h"
 #include "game.h"
 #include "render.h"
+#include "input.h"
 
 // temp
 #include "actor.h"
@@ -31,6 +32,7 @@ int main()
       if (e.type == SDL_QUIT) break;
     }
     // Handle input
+    handle_input(e, g);
     game_tick(g);
     render(g);
   }

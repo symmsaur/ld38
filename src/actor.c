@@ -16,7 +16,8 @@ void actor_step_position(actor *a, double dt) {
   {
     a->pos.x = -a->pos.x;
     a->pos.y = -a->pos.y;
-    a->vel.z = -a->vel.z;
+    //a->vel.z = -a->vel.z;
+    a->vel = vec_smult(-1, a->vel);
   }
 }
 

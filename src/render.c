@@ -5,10 +5,11 @@
 #include "render.h"
 #include "actor.h"
 
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 
 #define RADIUS 400
+#define RADIUS_POND 390
 
 void render_actor(actor *a);
 void render_background();
@@ -55,11 +56,16 @@ void gfx_cleanup() {
 void render(game *g) {
   SDL_RenderClear(_renderer);
   render_background();
-  render_sphere();
-  for (item *i = g->actors->first; i != NULL; i = i->next)
-  {
+  for (item *i = g->actors->first; i != NULL; i = i->next) {
     actor *a = (actor*)i->elem;
-    render_actor(a);
+    if(a->pos.z < 0)
+      render_actor(a);
+  }
+  render_sphere();
+  for (item *i = g->actors->first; i != NULL; i = i->next) {
+    actor *a = (actor*)i->elem;
+    if(a->pos.z >= 0)
+      render_actor(a);
   }
   SDL_RenderPresent(_renderer);
 }
@@ -85,7 +91,9 @@ void render_actor(actor *a) {
   tgt.w = 50 * scale;
   tgt.h = 50 * scale;
 
-  SDL_RenderCopyEx(_renderer, _placeholder_texture, &src, &tgt, 0, NULL, 0);
+  double angle = 180.0 / 3.14159 * atan2(a->vel.x, a->vel.y) + 180.0;
+
+  SDL_RenderCopyEx(_renderer, _placeholder_texture, &src, &tgt, angle, NULL, 0);
 }
 
 void render_background() {
@@ -93,9 +101,9 @@ void render_background() {
 }
 void render_sphere() {
   SDL_Rect tgt;
-  tgt.x = SCREEN_WIDTH / 2.0 - RADIUS;
-  tgt.y = SCREEN_HEIGHT / 2.0 - RADIUS;
-  tgt.w = 2*RADIUS;
-  tgt.h = 2*RADIUS;
+  tgt.x = SCREEN_WIDTH / 2.0 - RADIUS_POND;
+  tgt.y = SCREEN_HEIGHT / 2.0 - RADIUS_POND;
+  tgt.w = 2*RADIUS_POND;
+  tgt.h = 2*RADIUS_POND;
   SDL_RenderCopy(_renderer, _sphere, NULL, &tgt);
 }
