@@ -63,7 +63,7 @@ void render(game *g) {
 }
 
 void render_actor(actor *a) {
-  double scale = 1 - .5 * a->pos.z;
+  double scale = .5 * a->pos.z + .5;
 
   int screen_x = (int)((a->pos.x) * RADIUS) 
     + SCREEN_WIDTH / 2 - 25 * scale;

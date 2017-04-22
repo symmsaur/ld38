@@ -11,6 +11,13 @@ void actor_step_position(actor *a, double dt) {
   vector new_vel_direction = vec_project_plane(a->vel, a->pos);
   vector new_vel = vec_smult(old_vel_length, vec_normalize(new_vel_direction));
   a->vel = new_vel;
+  // teleport around backside
+  if (a->pos.z < -.2)
+  {
+    a->pos.x = -a->pos.x;
+    a->pos.y = -a->pos.y;
+    a->vel.z = -a->vel.z;
+  }
 }
 
 int actor_check_collision(actor *a, actor *b)
