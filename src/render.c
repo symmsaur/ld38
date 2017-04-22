@@ -41,11 +41,10 @@ void gfx_init() {
   r.w = 50;
   r.h = 50;
   SDL_SetRenderTarget(_renderer, _placeholder_texture);
-  SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0x00);
-  SDL_RenderClear(_renderer);
-  SDL_RenderDrawRect(_renderer,&r);
   SDL_SetRenderDrawColor(_renderer, 0xFF, 0x00, 0x00, 0x00);
+  SDL_RenderDrawRect(_renderer,&r);
   SDL_RenderFillRect(_renderer, &r);
+  SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0x00);
   SDL_SetRenderTarget(_renderer, NULL);
   // ------
 }
@@ -63,6 +62,7 @@ void render(game *g) {
     actor *a = (actor*)i->elem;
     render_actor(a);
   }
+  SDL_RenderPresent(_renderer);
 }
 
 void render_actor(actor *a) {
