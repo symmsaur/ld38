@@ -19,6 +19,7 @@ static SDL_Renderer *_renderer;
 
 static SDL_Texture *_placeholder_texture;
 static SDL_Texture *_background;
+static SDL_Texture *_sphere;
 
 void gfx_init() {
   SDL_Init(SDL_INIT_VIDEO);
@@ -38,6 +39,7 @@ void gfx_init() {
   }
 
   _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
+  _sphere = IMG_LoadTexture(_renderer, "../assets/sphere.png");
 
   // Test code ----
   _placeholder_texture = IMG_LoadTexture(_renderer, "../assets/duck_top_0.png");
@@ -90,4 +92,10 @@ void render_background() {
   SDL_RenderCopy(_renderer, _background, NULL, NULL);
 }
 void render_sphere() {
+  SDL_Rect tgt;
+  tgt.x = SCREEN_WIDTH / 2.0 - RADIUS;
+  tgt.y = SCREEN_HEIGHT / 2.0 - RADIUS;
+  tgt.w = 2*RADIUS;
+  tgt.h = 2*RADIUS;
+  SDL_RenderCopy(_renderer, _sphere, NULL, &tgt);
 }
