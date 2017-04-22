@@ -8,7 +8,7 @@
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 
-#define SCALE 400
+#define RADIUS 400
 
 void render_actor(actor *a);
 void render_background();
@@ -71,8 +71,12 @@ void render(game *g) {
 }
 
 void render_actor(actor *a) {
-  int screen_x = (int)((a->pos.x) * SCALE) + SCREEN_WIDTH / 2 - 25;
-  int screen_y = (int)((a->pos.y) * SCALE) + SCREEN_HEIGHT / 2 - 25;
+  double scale = 1 - .5 * a->pos.z;
+
+  int screen_x = (int)((a->pos.x) * RADIUS) 
+    + SCREEN_WIDTH / 2 - 25 * scale;
+  int screen_y = (int)(-(a->pos.y) * RADIUS) 
+    + SCREEN_HEIGHT / 2 - 25 * scale;
 
   SDL_Rect src;
   SDL_Rect tgt;
