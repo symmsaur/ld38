@@ -19,12 +19,13 @@ void init_director() {
   intensity = START_INTENSITY;
 }
 
-void manage_actors(game *g, double dt) {
-  if (should_spawn(dt))
-  {
+void manage_enemies(game *g, double dt) {
+  if (should_spawn(dt)) {
     list *actors = g->actors;
     actor *a = actor_create();
-    a->pos = vec_rand_on_sphere();
+    vector r = vec_rand_on_sphere();
+    r.z = -.1;
+    a->pos = vec_normalize(r);
     // should be pushed onto sphere by position update code
     a->vel = vec_rand_on_sphere();
     a->sprite_index = SPRITE_INDEX_PLAYER;

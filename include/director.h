@@ -2,5 +2,5 @@
 
 #include "game.h"
 
-void manage_actors(game *g, double dt);
+void manage_enemies(game *g, double dt);
 void init_director();

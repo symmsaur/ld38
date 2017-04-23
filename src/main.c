@@ -45,7 +45,7 @@ int main()
     if(current_clock-last_refresh > TICK_RATE) {
       last_refresh = current_clock;
       handle_input(e, g);
-      manage_actors(g, DELTA_T);
+      manage_enemies(g, DELTA_T);
       game_tick(g);
       render(g);
       if(g->game_over)
