@@ -5,6 +5,7 @@
 #include "main.h"
 #include "game.h"
 #include "render.h"
+#include "sound.h"
 #include "input.h"
 #include "director.h"
 #include "sprite.h"
@@ -23,15 +24,15 @@ int main()
 
   printf("Init gfx\n");
   gfx_init();
+  sound_init();
   init_director();
   load_sprites();
   SDL_Event e;
   printf("Starting main loop\n");
-
   clock_t last_refresh = clock();
   clock_t current_clock;
   printf("Framerate: %f\n", (float)CLOCKS_PER_SEC/TICK_RATE);
-
+  sound_play(SOUND_CRASH);
   while (1) {
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
@@ -51,6 +52,7 @@ int main()
         break;
     }
   }
+  sound_cleanup();
   game_destroy(g);
   gfx_cleanup();
   return 0;
