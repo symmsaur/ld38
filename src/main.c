@@ -26,7 +26,6 @@ int main()
   printf("Init gfx\n");
   gfx_init();
   sound_init();
-  init_director();
   load_sprites();
   SDL_Event e;
   printf("Starting main loop\n");
@@ -51,6 +50,7 @@ int main()
   }
   while(1) {
     game *g = game_create(1);
+    init_director();
     while (1) {
       if (SDL_PollEvent(&e)) {
         if (e.type == SDL_QUIT) {
