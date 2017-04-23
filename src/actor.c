@@ -20,6 +20,14 @@ void actor_step_position(actor *a, double dt) {
     a->pos.z = wrap_distance + (wrap_distance - a->pos.z);
     a->vel = vec_smult(-1, a->vel);
   }
+  // F = -c*v^2
+  // m * v' = F
+  // v' = -(1.0 / m)*c*v^2
+  vector new_vel_unit = vec_normalize(new_vel);
+  double drag = a->viscosity*old_vel_length*old_vel_length / a->size;
+  if(drag > old_vel_length)
+    drag = old_vel_length;
+  a->vel = vec_add(a->vel, vec_smult(-drag, new_vel_unit));
 }
 
 int actor_check_collision(actor *a, actor *b)
@@ -41,6 +49,7 @@ actor * actor_create() {
   a->vel.y = 0;
   a->vel.z = 0;
   a->size = 0.06;
+  a->viscosity = 0;
   return a;
 }
 
