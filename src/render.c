@@ -1,5 +1,6 @@
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 #include <stdlib.h>
 
 #include "render.h"
@@ -21,6 +22,9 @@ static SDL_Renderer *_renderer;
 static SDL_Texture *_placeholder_texture;
 static SDL_Texture *_background;
 static SDL_Texture *_sphere;
+static TTF_Font *font; 
+
+static int ttf_initialized = 1;
 
 void gfx_init() {
   SDL_Init(SDL_INIT_VIDEO);
@@ -37,6 +41,16 @@ void gfx_init() {
   if (_renderer == NULL) {
     printf("Fialed to create renderer");
     SDL_Quit();
+  }
+  if(TTF_Init() == -1) {
+    printf("Failed to init TTF font");
+    ttf_initialized = 0;
+  }
+  if(ttf_initialized) {
+    font = TTF_OpenFont("../assets/roboto_bold.ttf", 24);
+    if(font == NULL) {
+      printf("Font loading failed!");
+    }
   }
 
   _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
@@ -67,6 +81,11 @@ void render(game *g) {
     if(a->pos.z >= 0)
       render_actor(a);
   }
+  SDL_Color duck_pond_text_color = {0, 255, 0};
+  render_text("Duck pond of dOOm", 20, 20, duck_pond_text_color);
+  char time_string[50];
+  sprintf(time_string, "Time: %.2f", g->game_time);
+  render_text(time_string, 20, 120, duck_pond_text_color);
   SDL_RenderPresent(_renderer);
 }
 
@@ -106,4 +125,19 @@ void render_sphere() {
   tgt.w = 2*RADIUS_POND;
   tgt.h = 2*RADIUS_POND;
   SDL_RenderCopy(_renderer, _sphere, NULL, &tgt);
+}
+
+void render_text(char *msg, int x, int y, SDL_Color color) {
+  if(ttf_initialized) {
+    SDL_Surface* surface_text = TTF_RenderText_Blended(font, msg, color); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+
+    SDL_Texture* message = SDL_CreateTextureFromSurface(_renderer, surface_text);
+    SDL_Rect tgt;
+    SDL_QueryTexture( message, NULL, NULL, &tgt.w, &tgt.h );
+    tgt.x = x;
+    tgt.y = y;
+    SDL_RenderCopy(_renderer, message, NULL, &tgt);
+    SDL_FreeSurface(surface_text);
+    SDL_DestroyTexture(message);
+  }
 }

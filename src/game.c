@@ -8,7 +8,9 @@ game * game_create() {
   game *g = malloc(sizeof(game));
   g->actors = list_create();
   g->player = list_add(g->actors, actor_create())->elem;
+  g->player->viscosity = 0.005;
   g->game_over = 0;
+  g->game_time = 0;
   return g;
 }
 void game_destroy(game *g) {
@@ -17,6 +19,7 @@ void game_destroy(game *g) {
 }
 
 void game_tick(game *g) {
+  g->game_time += DELTA_T;
   for (item *i = g->actors->first; i != NULL; i = i->next) {
     actor *a = (actor*)i->elem;
     actor_step_position(a, DELTA_T);

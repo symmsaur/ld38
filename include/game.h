@@ -9,6 +9,7 @@ typedef struct game {
   list *actors;
   actor *player;
   int game_over;
+  double game_time;
 } game;
 
 game * game_create();
