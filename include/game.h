@@ -8,6 +8,7 @@
 typedef struct game {
   list *actors;
   actor *player;
+  int game_over;
 } game;
 
 game * game_create();

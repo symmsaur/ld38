@@ -37,6 +37,8 @@ int main()
     manage_actors(g, DELTA_T);
     game_tick(g);
     render(g);
+    if(g->game_over)
+      break;
   }
   game_destroy(g);
   gfx_cleanup();

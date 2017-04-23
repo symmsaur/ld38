@@ -12,11 +12,12 @@ void actor_step_position(actor *a, double dt) {
   vector new_vel = vec_smult(old_vel_length, vec_normalize(new_vel_direction));
   a->vel = new_vel;
   // teleport around backside
-  if (a->pos.z < -.2)
+  double wrap_distance = -.2;
+  if (a->pos.z < wrap_distance)
   {
     a->pos.x = -a->pos.x;
     a->pos.y = -a->pos.y;
-    //a->vel.z = -a->vel.z;
+    a->pos.z = wrap_distance + (wrap_distance - a->pos.z);
     a->vel = vec_smult(-1, a->vel);
   }
 }
@@ -39,7 +40,7 @@ actor * actor_create() {
   a->vel.x = 0;
   a->vel.y = 0;
   a->vel.z = 0;
-  a->size = 0;
+  a->size = 0.06;
   return a;
 }
 
