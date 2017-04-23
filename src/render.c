@@ -121,17 +121,27 @@ void render_actor(actor *a) {
   tgt.w = 50 * scale;
   tgt.h = 50 * scale;
 
-  double angle = 180.0 / 3.14159 * atan2(a->vel.x, a->vel.y) + 180.0;
+  double pos_angle = atan2(a->pos.x, a->pos.y);
+  double angle = 180.0 / 3.14159 * pos_angle;
 
   sprite *s = get_sprite(a->sprite_index);
   int n_x = s->n_orientations_x;
-  //int n_z = s->n_orientations_z;
+  int n_z = s->n_orientations_z;
 
   vector z_hat = {0, 0, 1};
   int index_x = acos(vec_dot(a->pos, z_hat)) / (3.14159 * .5) * n_x;
   if (index_x > n_x - 1) index_x = n_x - 1;
 
-  SDL_Texture *t = sprite_get_texture(s, 0, index_x);
+  double vel_angle = atan2(a->vel.x, a->vel.y);
+  double duck_param = (vel_angle - pos_angle + (3.1415 * 1.25)) / (3.1415927 * 2);
+
+  if (duck_param < 0) duck_param += 1;
+  else if (duck_param >= 1) duck_param -=1;
+
+  int index_z =  duck_param * n_z;
+  if (index_z > n_z - 1) index_z = n_z - 1;
+
+  SDL_Texture *t = sprite_get_texture(s, index_z, index_x);
 
   SDL_RenderCopyEx(_renderer, t, &src, &tgt, angle, NULL, 0);
 }
