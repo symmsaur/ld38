@@ -143,7 +143,12 @@ void render_actor(actor *a) {
 
   SDL_Texture *t = sprite_get_texture(s, index_z, index_x);
 
+  // HACK: The player is the only duck with true viscosity.
+  if (!a->viscosity) {
+  SDL_SetTextureColorMod(t, 255, 0, 0);
+  }
   SDL_RenderCopyEx(_renderer, t, &src, &tgt, angle, NULL, 0);
+  SDL_SetTextureColorMod(t, 255, 255, 255);
 }
 
 void render_background() {
