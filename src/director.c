@@ -22,6 +22,21 @@ void init_director() {
   intensity = START_INTENSITY;
 }
 
+void start_screen_enemies(game *g) {
+  for(int i = 0; i < 4; i++) {
+    list *actors = g->actors;
+    actor *a = actor_create();
+    vector r = vec_rand_on_sphere();
+    r.z = -.17;
+    a->pos = vec_normalize(r);
+    // should be pushed onto sphere by position update code
+    vector s = vec_rand_on_sphere();
+    a->vel = vec_smult(.6 + INTENSITY_VELOCITY_FACTOR * intensity, s);
+    a->sprite_index = SPRITE_INDEX_PLAYER;
+    list_add(actors, a);
+  }
+}
+
 void manage_enemies(game *g, double dt) {
   if (in_spawn_interval(g->game_time)) {
     if (should_spawn(dt)) {

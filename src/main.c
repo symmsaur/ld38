@@ -19,7 +19,9 @@ int main()
 {
   srand(0);
   printf("Creating game\n");
-  game *g = game_create();
+  game *g = game_create(1);
+  game *start_screen_game = game_create(0);
+  start_screen_enemies(start_screen_game);
   printf("Adding test actor\n");
 
   printf("Init gfx\n");
@@ -37,9 +39,22 @@ int main()
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
     }
-
-
-
+    const Uint8 *keyboard_state = SDL_GetKeyboardState(NULL);
+    if (keyboard_state[SDL_SCANCODE_RETURN]) {
+      break;
+    }
+    current_clock  = clock();
+    if(current_clock-last_refresh > TICK_RATE) {
+      last_refresh = current_clock;
+      game_tick(start_screen_game);
+      render_start_overlay();
+      render(start_screen_game, 0);
+    }
+  }
+  while (1) {
+    if (SDL_PollEvent(&e)) {
+      if (e.type == SDL_QUIT) break;
+    }
 
     current_clock  = clock();
     if(current_clock-last_refresh > TICK_RATE) {
@@ -47,11 +62,24 @@ int main()
       handle_input(e, g);
       manage_enemies(g, DELTA_T);
       game_tick(g);
-      render(g);
+      render(g, 1);
       if(g->game_over)
         break;
     }
   }
+  while (1) {
+    if (SDL_PollEvent(&e)) {
+      if (e.type == SDL_QUIT) break;
+    }
+    current_clock  = clock();
+    if(current_clock-last_refresh > TICK_RATE) {
+      last_refresh = current_clock;
+      handle_input(e, g);
+      manage_enemies(g, DELTA_T);
+      render(g, 1);
+    }
+  }
+
   sound_cleanup();
   game_destroy(g);
   gfx_cleanup();

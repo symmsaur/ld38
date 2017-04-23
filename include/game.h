@@ -12,7 +12,7 @@ typedef struct game {
   double game_time;
 } game;
 
-game * game_create();
+game * game_create(int players);
 void game_destroy(game *g);
 
 void game_tick(game *g);

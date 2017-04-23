@@ -21,6 +21,7 @@ void render_water(double time);
 static SDL_Window *_window;
 static SDL_Renderer *_renderer;
 
+static SDL_Texture *_start_screen;
 static SDL_Texture *_background;
 static SDL_Texture *_sphere;
 static SDL_Texture *_water[3];
@@ -59,6 +60,7 @@ void gfx_init() {
     }
   }
 
+  _start_screen = IMG_LoadTexture(_renderer, "../assets/startoverlay.png");
   _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
   _sphere = IMG_LoadTexture(_renderer, "../assets/sphere.png");
   _water[0] = IMG_LoadTexture(_renderer, "../assets/pond1.png");
@@ -83,7 +85,7 @@ void gfx_cleanup() {
   SDL_Quit();
 }
 
-void render(game *g) {
+void render(game *g, int show_time) {
   SDL_RenderClear(_renderer);
   render_background();
   for (item *i = g->actors->first; i != NULL; i = i->next) {
@@ -98,11 +100,12 @@ void render(game *g) {
     if(a->pos.z >= 0)
       render_actor(a);
   }
-  SDL_Color duck_pond_text_color = {0, 255, 0};
-  render_text("Duck pond of dOOm", 20, 20, duck_pond_text_color);
-  char time_string[50];
-  sprintf(time_string, "Time: %.2f", g->game_time);
-  render_text(time_string, 20, 120, duck_pond_text_color);
+  if(show_time) {
+    SDL_Color duck_pond_text_color = {255, 255, 255};
+    char time_string[50];
+    sprintf(time_string, "Time: %.2f", g->game_time);
+    render_text(time_string, 20, 120, duck_pond_text_color);
+  }
   SDL_RenderPresent(_renderer);
 }
 
@@ -160,6 +163,16 @@ void render_actor(actor *a) {
 void render_background() {
   SDL_RenderCopy(_renderer, _background, NULL, NULL);
 }
+
+void render_start_overlay() {
+  SDL_Rect tgt;
+  SDL_QueryTexture( _start_screen, NULL, NULL, &tgt.w, &tgt.h );
+  tgt.x = SCREEN_WIDTH / 2.0 - tgt.w/2;
+  tgt.y = SCREEN_HEIGHT / 2.0 - tgt.h/2;
+  //SDL_SetTextureAlphaMod(_sphere, 200);
+  SDL_RenderCopy(_renderer, _start_screen, NULL, &tgt);
+}
+
 void render_sphere() {
   SDL_Rect tgt;
   tgt.x = SCREEN_WIDTH / 2.0 - RADIUS_POND;
