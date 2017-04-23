@@ -4,6 +4,7 @@
 #include "game.h"
 #include "actor.h"
 #include "sprite.h"
+#include "sound.h"
 
 game * game_create() {
   game *g = malloc(sizeof(game));
@@ -28,6 +29,7 @@ void game_destroy(game *g) {
 }
 
 void game_tick(game *g) {
+  static int sound_decay = 0;
   g->game_time += DELTA_T;
   for (item *i = g->actors->first; i != NULL; i = i->next) {
     actor *a = (actor*)i->elem;
@@ -35,8 +37,16 @@ void game_tick(game *g) {
   }
   for (item *j = g->actors->first; j != NULL; j = j->next) {
     if (g->player != j->elem) {
-      if(actor_check_collision(g->player, j->elem))
+      if(actor_check_collision(g->player, j->elem) == 1) {
         g->game_over = 1;
+      }
+      else if (actor_check_collision(g->player, j->elem) == 2) {
+        if (sound_decay <= 0) {
+          sound_decay = 30;
+          sound_play(SOUND_SPAWN);
+        }
+      }
     }
   }
+  sound_decay--;
 }

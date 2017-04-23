@@ -1,6 +1,6 @@
 #include "sound.h"
 
-#define N_SOUNDS 1
+#define N_SOUNDS 3
 
 static int sound_initialized = 1;
 
@@ -13,6 +13,8 @@ void sound_init() {
     }
   sounds = malloc(sizeof(Mix_Chunk*)*N_SOUNDS);
   sounds[0] = load_wav("../assets/test.wav");
+  sounds[1] = load_wav("../assets/ploe.wav");
+  sounds[2] = load_wav("../assets/flofloflo.wav");
 }
 
 void sound_cleanup() {

@@ -4,6 +4,7 @@
 #include "vector.h"
 #include "actor.h"
 #include "sprite.h"
+#include "sound.h"
 
 int should_spawn(double dt);
 int in_spawn_interval(double t);

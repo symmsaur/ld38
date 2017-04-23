@@ -37,6 +37,9 @@ int actor_check_collision(actor *a, actor *b)
   if(distance < a->size + b->size) {
     return 1;
   }
+  else if (distance < (a->size + b->size) * 2.5) {
+    return 2;
+  }
   return 0;
 }
 
