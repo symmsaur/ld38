@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <time.h>
 #include "SDL.h"
 
 #include "main.h"
@@ -10,6 +11,8 @@
 
 // temp
 #include "actor.h"
+
+#define TICK_RATE (CLOCKS_PER_SEC/60)
 
 int main()
 {
@@ -24,16 +27,29 @@ int main()
   load_sprites();
   SDL_Event e;
   printf("Starting main loop\n");
+
+  clock_t last_refresh = clock();
+  clock_t current_clock;
+  printf("Framerate: %f\n", (float)CLOCKS_PER_SEC/TICK_RATE);
+
   while (1) {
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
     }
-    handle_input(e, g);
-    manage_actors(g, DELTA_T);
-    game_tick(g);
-    render(g);
-    if(g->game_over)
-      break;
+
+
+
+
+    current_clock  = clock();
+    if(current_clock-last_refresh > TICK_RATE) {
+      last_refresh = current_clock;
+      handle_input(e, g);
+      manage_actors(g, DELTA_T);
+      game_tick(g);
+      render(g);
+      if(g->game_over)
+        break;
+    }
   }
   game_destroy(g);
   gfx_cleanup();
