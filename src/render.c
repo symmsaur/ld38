@@ -7,8 +7,8 @@
 #include "actor.h"
 #include "sprite.h"
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 
 #define RADIUS 400
 #define RADIUS_POND 390
@@ -101,7 +101,7 @@ void render(game *g) {
 }
 
 void render_actor(actor *a) {
-  double scale = .5 * a->pos.z + .5;
+  double scale = .3 * a->pos.z + .7;
 
   int screen_x = (int)((a->pos.x) * RADIUS) 
     + SCREEN_WIDTH / 2 - 25 * scale;
