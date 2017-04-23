@@ -123,7 +123,15 @@ void render_actor(actor *a) {
 
   double angle = 180.0 / 3.14159 * atan2(a->vel.x, a->vel.y) + 180.0;
 
-  SDL_Texture *t = sprite_get_texture(get_sprite(a->sprite_index), 0, 0);
+  sprite *s = get_sprite(a->sprite_index);
+  int n_x = s->n_orientations_x;
+  //int n_z = s->n_orientations_z;
+
+  vector z_hat = {0, 0, 1};
+  int index_x = acos(vec_dot(a->pos, z_hat)) / (3.14159 * .5) * n_x;
+  if (index_x > n_x - 1) index_x = n_x - 1;
+
+  SDL_Texture *t = sprite_get_texture(s, 0, index_x);
 
   SDL_RenderCopyEx(_renderer, t, &src, &tgt, angle, NULL, 0);
 }
