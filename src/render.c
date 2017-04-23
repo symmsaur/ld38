@@ -5,6 +5,7 @@
 
 #include "render.h"
 #include "actor.h"
+#include "sprite.h"
 
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
@@ -19,7 +20,6 @@ void render_sphere();
 static SDL_Window *_window;
 static SDL_Renderer *_renderer;
 
-static SDL_Texture *_placeholder_texture;
 static SDL_Texture *_background;
 static SDL_Texture *_sphere;
 static TTF_Font *font; 
@@ -34,6 +34,7 @@ void gfx_init() {
   if (_window == NULL) {
     printf("Failed to create window\n.");
     SDL_Quit();
+    exit(-1);
   }
 
   _renderer = SDL_CreateRenderer(_window, -1,
@@ -41,25 +42,35 @@ void gfx_init() {
   if (_renderer == NULL) {
     printf("Fialed to create renderer");
     SDL_Quit();
+    exit(-1);
   }
   if(TTF_Init() == -1) {
     printf("Failed to init TTF font");
     ttf_initialized = 0;
+    exit(-1);
   }
   if(ttf_initialized) {
     font = TTF_OpenFont("../assets/roboto_bold.ttf", 24);
     if(font == NULL) {
       printf("Font loading failed!");
+      exit(-1);
     }
   }
 
   _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
   _sphere = IMG_LoadTexture(_renderer, "../assets/sphere.png");
-
-  // Test code ----
-  _placeholder_texture = IMG_LoadTexture(_renderer, "../assets/duck_top_0.png");
-  // ------
 }
+
+SDL_Texture * render_load_texture(const char* filename){
+  SDL_Texture *t = IMG_LoadTexture(_renderer, filename);
+  if (t == NULL) {
+    printf("Failed to load texture: %s\n", filename);
+    SDL_Quit();
+    exit(-1);
+  }
+  return t;
+}
+
 
 void gfx_cleanup() {
   SDL_DestroyWindow(_window);
@@ -112,7 +123,9 @@ void render_actor(actor *a) {
 
   double angle = 180.0 / 3.14159 * atan2(a->vel.x, a->vel.y) + 180.0;
 
-  SDL_RenderCopyEx(_renderer, _placeholder_texture, &src, &tgt, angle, NULL, 0);
+  SDL_Texture *t = sprite_get_texture(get_sprite(a->sprite_index), 0, 0);
+
+  SDL_RenderCopyEx(_renderer, t, &src, &tgt, angle, NULL, 0);
 }
 
 void render_background() {

@@ -7,6 +7,7 @@ typedef struct actor {
   vector vel;
   double size;
   double viscosity;
+  int sprite_index;
 } actor;
 
 void actor_step_position(actor *a, double dt);

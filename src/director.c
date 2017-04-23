@@ -3,6 +3,7 @@
 #include "director.h"
 #include "vector.h"
 #include "actor.h"
+#include "sprite.h"
 
 int should_spawn(double dt);
 
@@ -26,6 +27,7 @@ void manage_actors(game *g, double dt) {
     a->pos = vec_rand_on_sphere();
     // should be pushed onto sphere by position update code
     a->vel = vec_rand_on_sphere();
+    a->sprite_index = SPRITE_INDEX_HAND;
     list_add(actors, a);
   }
 }

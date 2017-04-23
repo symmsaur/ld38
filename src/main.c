@@ -6,6 +6,7 @@
 #include "render.h"
 #include "input.h"
 #include "director.h"
+#include "sprite.h"
 
 // temp
 #include "actor.h"
@@ -16,17 +17,11 @@ int main()
   printf("Creating game\n");
   game *g = game_create();
   printf("Adding test actor\n");
-  actor *a = g->player;
-  a->pos.x = 0.0;
-  a->pos.y = 0.0;
-  a->pos.z = 1.0;
-  a->vel.x = .05;
-  a->vel.y = .0;
-  a->vel.z = .0;
 
   printf("Init gfx\n");
   gfx_init();
   init_director();
+  load_sprites();
   SDL_Event e;
   printf("Starting main loop\n");
   while (1) {

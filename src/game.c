@@ -3,14 +3,23 @@
 
 #include "game.h"
 #include "actor.h"
+#include "sprite.h"
 
 game * game_create() {
   game *g = malloc(sizeof(game));
   g->actors = list_create();
   g->player = list_add(g->actors, actor_create())->elem;
+  g->player->pos.x = 0.0;
+  g->player->pos.y = 0.0;
+  g->player->pos.z = 1.0;
+  g->player->vel.x = .05;
+  g->player->vel.y = .0;
+  g->player->vel.z = .0;
   g->player->viscosity = 0.005;
+  g->player->sprite_index = SPRITE_INDEX_PLAYER;
   g->game_over = 0;
   g->game_time = 0;
+
   return g;
 }
 void game_destroy(game *g) {

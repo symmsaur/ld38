@@ -50,6 +50,7 @@ actor * actor_create() {
   a->vel.z = 0;
   a->size = 0.06;
   a->viscosity = 0;
+  a->sprite_index = 0;
   return a;
 }
 
