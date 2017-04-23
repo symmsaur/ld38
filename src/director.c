@@ -7,14 +7,15 @@
 int should_spawn(double dt);
 
 #define INTENSITY_INTERVAL 20
-#define INTENSITY_FACTOR .1
+#define INTENSITY_RATE .02
 #define REST_INTERVAL 10
 #define LIFETIME 10
+#define START_INTENSITY .5
 
 static double intensity;
 
 void init_director() {
-  intensity = 1;
+  intensity = START_INTENSITY;
 }
 
 void manage_actors(game *g, double dt) {
@@ -39,7 +40,7 @@ int should_spawn(double dt) {
   }
   else 
   {
-    intensity += dt * INTENSITY_FACTOR;
+    intensity += dt * INTENSITY_RATE;
     return 0;
   }
 }
