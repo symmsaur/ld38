@@ -15,7 +15,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.1 r"
-   sodipodi:docname="sphere.svg">
+   sodipodi:docname="sphere.svg"
+   inkscape:export-filename="/home/herden/projects/ld38/assets/sphere.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -23,10 +26,10 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="168.88412"
+     inkscape:cx="91.102375"
      inkscape:cy="380.53798"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -35,9 +38,9 @@
      inkscape:snap-object-midpoints="true"
      inkscape:snap-page="true"
      inkscape:snap-grids="true"
-     inkscape:window-width="1912"
-     inkscape:window-height="1014"
-     inkscape:window-x="0"
+     inkscape:window-width="2040"
+     inkscape:window-height="1086"
+     inkscape:window-x="1920"
      inkscape:window-y="30"
      inkscape:window-maximized="0" />
   <metadata
@@ -58,10 +61,12 @@
      id="layer1"
      transform="translate(0,-26.06665)">
     <circle
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#00c6ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.58749998, 1.58749998000000003;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:optimizeQuality;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#00343d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.58749998, 1.58749998000000003;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:optimizeQuality;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="path4493"
        cx="135.46666"
        cy="161.53331"
-       r="135.46666" />
+       r="135.46666"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

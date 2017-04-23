@@ -16,12 +16,14 @@
 void render_actor(actor *a);
 void render_background();
 void render_sphere();
+void render_water(double time);
 
 static SDL_Window *_window;
 static SDL_Renderer *_renderer;
 
 static SDL_Texture *_background;
 static SDL_Texture *_sphere;
+static SDL_Texture *_water[3];
 static TTF_Font *font; 
 
 static int ttf_initialized = 1;
@@ -59,6 +61,9 @@ void gfx_init() {
 
   _background = IMG_LoadTexture(_renderer, "../assets/background.jpg");
   _sphere = IMG_LoadTexture(_renderer, "../assets/sphere.png");
+  _water[0] = IMG_LoadTexture(_renderer, "../assets/pond1.png");
+  _water[1] = IMG_LoadTexture(_renderer, "../assets/pond2.png");
+  _water[2] = IMG_LoadTexture(_renderer, "../assets/pond3.png");
 }
 
 SDL_Texture * render_load_texture(const char* filename){
@@ -87,6 +92,7 @@ void render(game *g) {
       render_actor(a);
   }
   render_sphere();
+  render_water(g->game_time);
   for (item *i = g->actors->first; i != NULL; i = i->next) {
     actor *a = (actor*)i->elem;
     if(a->pos.z >= 0)
@@ -160,7 +166,29 @@ void render_sphere() {
   tgt.y = SCREEN_HEIGHT / 2.0 - RADIUS_POND;
   tgt.w = 2*RADIUS_POND;
   tgt.h = 2*RADIUS_POND;
+  //SDL_SetTextureAlphaMod(_sphere, 200);
   SDL_RenderCopy(_renderer, _sphere, NULL, &tgt);
+}
+
+void render_water(double time) {
+  SDL_Rect tgt;
+  tgt.x = SCREEN_WIDTH / 2.0 - RADIUS_POND;
+  tgt.y = SCREEN_HEIGHT / 2.0 - RADIUS_POND;
+  tgt.w = 2*RADIUS_POND;
+  tgt.h = 2*RADIUS_POND;
+  SDL_SetTextureBlendMode(_water[0], SDL_BLENDMODE_ADD);
+  SDL_SetTextureBlendMode(_water[1], SDL_BLENDMODE_ADD);
+  SDL_SetTextureBlendMode(_water[2], SDL_BLENDMODE_ADD);
+  double alpha_max = 50;
+  double blend1 = sin(3*time) * alpha_max + alpha_max;
+  double blend2 = sin(3*time + 2*3.14/3.) * alpha_max + alpha_max;
+  double blend3 = sin(3*time + 2*2*3.14/3.) * alpha_max + alpha_max;
+  SDL_SetTextureAlphaMod(_water[0], (int)blend1);
+  SDL_SetTextureAlphaMod(_water[1], (int)blend2);
+  SDL_SetTextureAlphaMod(_water[2], (int)blend3);
+  SDL_RenderCopy(_renderer, _water[0], NULL, &tgt);
+  SDL_RenderCopy(_renderer, _water[1], NULL, &tgt);
+  SDL_RenderCopy(_renderer, _water[2], NULL, &tgt);
 }
 
 void render_text(char *msg, int x, int y, SDL_Color color) {
