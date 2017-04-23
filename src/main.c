@@ -32,7 +32,6 @@ int main()
   clock_t last_refresh = clock();
   clock_t current_clock;
   printf("Framerate: %f\n", (float)CLOCKS_PER_SEC/TICK_RATE);
-  sound_play(SOUND_CRASH);
   while (1) {
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) goto end;
