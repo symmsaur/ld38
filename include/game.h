@@ -1,11 +1,13 @@
 #pragma once
 
 #include "list.h"
+#include "actor.h"
 
 #define DELTA_T 0.01
 
 typedef struct game {
   list *actors;
+  actor *player;
 } game;
 
 game * game_create();

@@ -23,6 +23,11 @@ void actor_step_position(actor *a, double dt) {
 
 int actor_check_collision(actor *a, actor *b)
 {
+  vector ab = vec_add(a->pos, vec_smult(-1, b->pos));
+  double distance = vec_norm(ab);
+  if(distance < a->size + b->size) {
+    return 1;
+  }
   return 0;
 }
 

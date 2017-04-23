@@ -7,6 +7,7 @@
 game * game_create() {
   game *g = malloc(sizeof(game));
   g->actors = list_create();
+  g->player = list_add(g->actors, actor_create())->elem;
   return g;
 }
 void game_destroy(game *g) {
@@ -18,7 +19,11 @@ void game_tick(game *g) {
   for (item *i = g->actors->first; i != NULL; i = i->next) {
     actor *a = (actor*)i->elem;
     actor_step_position(a, DELTA_T);
-    //printf("pos: [%3f, %3f, %3f]\n", a->pos.x, a->pos.y, a->pos.z);
-    //printf("vel: [%3f, %3f, %3f]\n", a->vel.x, a->vel.y, a->vel.z);
+    for (item *j = g->actors->first; j != NULL; j = j->next) {
+      if (i != j) {
+        if(actor_check_collision(i->elem, j->elem))
+          printf("Collision!\n");
+      }
+    }
   }
 }
