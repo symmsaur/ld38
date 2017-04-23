@@ -5,12 +5,14 @@
 #include "game.h"
 #include "render.h"
 #include "input.h"
+#include "director.h"
 
 // temp
 #include "actor.h"
 
 int main()
 {
+  srand(0);
   printf("Creating game\n");
   game *g = game_create();
   printf("Adding test actor\n");
@@ -25,14 +27,15 @@ int main()
 
   printf("Init gfx\n");
   gfx_init();
+  init_director();
   SDL_Event e;
   printf("Starting main loop\n");
   while (1) {
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
     }
-    // Handle input
     handle_input(e, g);
+    manage_actors(g, DELTA_T);
     game_tick(g);
     render(g);
   }

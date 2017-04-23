@@ -1,4 +1,6 @@
 #include <math.h>
+#include <stdlib.h>
+
 #include "vector.h"
 
 vector vec_add(vector u, vector v) {
@@ -43,3 +45,12 @@ vector vec_project_plane(vector u, vector normal) {
   vector u_perp = vec_smult(vec_dot(u, unit_normal), unit_normal); 
   return vec_add(u, vec_smult(-1, u_perp));
 }
+
+vector vec_rand_on_sphere() {
+  vector u;
+  u.x = 2 * ((double)rand() / RAND_MAX) - 1;
+  u.y = 2 * ((double)rand() / RAND_MAX) - 1;
+  u.z = 2 * ((double)rand() / RAND_MAX) - 1;
+  return vec_normalize(u);
+}
+

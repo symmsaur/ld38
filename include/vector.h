@@ -13,3 +13,6 @@ vector vec_smult(double a, vector u);
 double vec_norm(vector u);
 vector vec_normalize(vector u);
 vector vec_project_plane(vector u, vector normal);
+
+vector vec_rand_on_sphere();
+vector vec_rand_sphere_tangent();
