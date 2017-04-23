@@ -13,3 +13,4 @@ typedef struct actor {
 void actor_step_position(actor *a, double dt);
 int actor_check_collision(actor *a, actor *b);
 actor * actor_create();
+void actor_destroy(actor *a);

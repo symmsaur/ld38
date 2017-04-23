@@ -54,3 +54,7 @@ actor * actor_create() {
   return a;
 }
 
+void actor_destroy(actor *a) {
+  free(a);
+}
+
