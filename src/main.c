@@ -18,10 +18,10 @@
 int main()
 {
   srand(0);
-  printf("Creating game\n");
+  //printf("Creating game\n");
   game *start_screen_game = game_create(0);
   start_screen_enemies(start_screen_game);
-  printf("Adding test actor\n");
+  //printf("Adding test actor\n");
 
   printf("Init gfx\n");
   gfx_init();
@@ -93,4 +93,9 @@ int main()
   sound_cleanup();
   gfx_cleanup();
   return 0;
+}
+
+// Windows support
+int wmain() {
+	return main();
 }

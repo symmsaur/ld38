@@ -1,7 +1,6 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
-#include <stdlib.h>
 
 #include "render.h"
 #include "actor.h"
@@ -107,7 +106,7 @@ void render(game *g, int start_screen) {
   if(start_screen != 1) {
     SDL_Color duck_pond_text_color = {255, 255, 255};
     char time_string[50];
-    sprintf(time_string, "Time: %.2f", g->game_time);
+    snprintf(time_string, 255, "Time: %.2f", g->game_time);
     render_text(time_string, 20, 120, duck_pond_text_color);
   }
   if(start_screen == 1) {
@@ -152,7 +151,7 @@ void render_actor(actor *a) {
   if (index_x > n_x - 1) index_x = n_x - 1;
 
   double vel_angle = atan2(a->vel.x, a->vel.y);
-  double duck_param = (vel_angle - pos_angle + (3.1415 * 1.25)) / (3.1415927 * 2);
+  double duck_param = (vel_angle - pos_angle + (3.1415 * (1.25 - 0.125))) / (3.1415927 * 2);
 
   if (duck_param < 0) duck_param += 1;
   else if (duck_param >= 1) duck_param -=1;

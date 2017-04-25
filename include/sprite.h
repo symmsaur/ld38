@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "SDL.h"
 
 #define SPRITE_INDEX_PLAYER 0

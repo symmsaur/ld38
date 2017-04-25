@@ -20,6 +20,11 @@ game * game_create(int players) {
     g->player->viscosity = 0.005;
     g->player->sprite_index = SPRITE_INDEX_PLAYER;
   }
+  else {
+	  g->player = NULL;
+  }
+
+	  
   g->game_over = 0;
   g->game_time = 0;
 

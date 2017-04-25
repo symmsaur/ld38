@@ -59,8 +59,11 @@ void manage_enemies(game *g, double dt) {
 }
 
 void kill_enemies(game *g) {
-  for (item *i = g->actors->first; i != NULL; i = i->next) {
+  for (item *i = g->actors->first; i != NULL; i = i->next) {	  
     actor *a = (actor*)i->elem;
+	if (a == g->player) {
+	  continue;
+	}
     if (a->pos.z < -.17)
     {
       item *tmp = i->prev;

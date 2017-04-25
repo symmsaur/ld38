@@ -1,4 +1,4 @@
-#include <stdlib.h>
+
 
 #include "sprite.h"
 #include "render.h"
@@ -28,7 +28,7 @@ sprite sprite_create(int n_orientations_z, int n_orientations_x,  const char* bn
   char *prefix = "../assets/";
   char *ext = ".png";
   char *pat = "_X_Y";
-  char *filename = malloc(sizeof(char) * (strlen(prefix) +  strlen(bname) + strlen(pat) + strlen(ext)));
+  char *filename = malloc(sizeof(char) * (strlen(prefix) +  strlen(bname) + strlen(pat) + strlen(ext) + 1));
   sprintf(filename, "%s%s%s%s", prefix, bname, pat, ext);
   for (int ori_x = 0; ori_x < n_orientations_x; ori_x++) {
     for (int ori_z = 0; ori_z < n_orientations_z; ori_z++) {
