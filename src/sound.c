@@ -2,7 +2,7 @@
 
 #define N_SOUNDS 3
 
-static int sound_initialized = 1;
+static int sound_initialized = 0;
 
 static Mix_Chunk **sounds;
 
@@ -15,6 +15,7 @@ void sound_init() {
   sounds[0] = load_wav("../assets/test.wav");
   sounds[1] = load_wav("../assets/ploe.wav");
   sounds[2] = load_wav("../assets/flofloflo.wav");
+  sound_initialized = 1;
 }
 
 void sound_cleanup() {

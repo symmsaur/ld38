@@ -1,7 +1,7 @@
 IDIR = ../include
 
 CC=gcc
-CFLAGS=-I$(IDIR) $(shell sdl2-config --cflags) -Wall -Werror -Wpedantic -g
+CFLAGS=-I$(IDIR) $(shell sdl2-config --cflags) -Wall -Werror -Wpedantic -g -O2
 
 ODIR = ../target
 
